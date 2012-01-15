@@ -40,6 +40,8 @@ module SugarCRM; class Connection
   
   # We need to strip newlines from Base64 encoding for JSON validation purposes.
   def b64_encode(file)
+    # if someone passes a Tempfile or File instead of a string, deal with it
+    file = file.read if !file.is_a?(String)
     Base64.encode64(file).gsub(/\n/, '')
   end
   
